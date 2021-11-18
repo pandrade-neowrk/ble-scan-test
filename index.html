@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<script>
+    function onButtonClick() {
+
+        let filters = [{
+            manufacturerData: [{
+            companyIdentifier: 0x004c,
+            dataPrefix: new Uint8Array([
+				0x02, 0x15, // iBeacon identifier.
+				//0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+				0xFD,0xA5,0x06,0x93,0xA4,0xE2,0x4F,0xB1,0xAF,0xCF,0xC6,0xEB,0x07,0x64,0x78,0x25,0x00,0x02,0x04,0xD2
+			  ])
+            }]
+        }];
+
+        let options = {
+            filters: filters,
+        };
+		
+        navigator.bluetooth.requestDevice(options)
+			.then(device => {
+				console.log('FOUND DEVICE: ', device);
+				alert('check-in realizado!');
+			})
+            .catch(error => {
+                console.log('Argh! ' + error);
+            });
+    }
+</script>
+
+<body>
+
+<h1>BLE Scan</h1>
+<p>Click scan to pair with a BLE device:</p>
+<button onclick="onButtonClick()">Scan</button>
+
+</body>
+</html>
